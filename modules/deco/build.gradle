@@ -1,0 +1,14 @@
+project.dependencies{
+    compileClasspath(project(':api'))
+    compileClasspath(project(':powercraft'))
+}
+
+ant.loadproperties(srcFile: "./../../version.properties")
+version = ant.properties['deco_vMajor'] + "." + ant.properties['deco_vMinor'] + "." + ant.properties['deco_vPatch'] + ant.properties['deco_vSuffix']
+
+project.minecraft{
+	replaceIn "PCde_App.java"
+	replace "@Version@", project.version
+}
+
+archivesBaseName = "deco"

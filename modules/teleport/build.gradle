@@ -1,0 +1,14 @@
+project.dependencies{
+    compileClasspath(project(':api'))
+    compileClasspath(project(':powercraft'))
+}
+
+ant.loadproperties(srcFile: "./../../version.properties")
+project.version = ant.properties['teleport_vMajor'] + "." + ant.properties['teleport_vMinor'] + "." + ant.properties['teleport_vPatch'] + ant.properties['teleport_vSuffix']
+
+project.minecraft{
+	replaceIn "PCtp_App.java"
+	replace "@Version@", project.version
+}
+
+archivesBaseName = "teleport"

@@ -1,0 +1,14 @@
+project.dependencies{
+    compileClasspath(project(':api'))
+    compileClasspath(project(':powercraft'))
+}
+
+ant.loadproperties(srcFile: "./../../version.properties")
+project.version = ant.properties['storage_vMajor'] + "." + ant.properties['storage_vMinor'] + "." + ant.properties['storage_vPatch'] + ant.properties['storage_vSuffix']
+
+project.minecraft{
+	replaceIn "PCs_App.java"
+	replace "@Version@", project.version
+}
+
+archivesBaseName = "storage"

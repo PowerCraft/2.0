@@ -1,0 +1,14 @@
+project.dependencies{
+    compileClasspath(project(':api'))
+    compileClasspath(project(':powercraft'))
+}
+
+ant.loadproperties(srcFile: "./../../version.properties")
+project.version = ant.properties['mobile_vMajor'] + "." + ant.properties['mobile_vMinor'] + "." + ant.properties['mobile_vPatch'] + ant.properties['mobile_vSuffix']
+
+project.minecraft{
+	replaceIn "PCmo_App.java"
+	replace "@Version@", project.version
+}
+
+archivesBaseName = "mobile"

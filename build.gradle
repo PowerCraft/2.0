@@ -1,0 +1,107 @@
+buildscript {
+    repositories {
+        jcenter()
+        maven { 
+            name = "forge"
+            url = "http://files.minecraftforge.net/maven"
+        }
+        maven {
+            name = "sonatype"
+            url = "https://oss.sonatype.org/content/repositories/snapshots/"
+        }
+    }
+    dependencies {
+        classpath("com.anatawa12.forge:ForgeGradle:1.2-1.0.+") {
+            changing = true
+        }
+    }
+}
+
+apply plugin: 'java'
+
+subprojects {
+    apply plugin: 'maven'
+    apply plugin: 'forge'
+
+    ant.loadproperties(srcFile: "${project.rootDir}/version.properties")
+    project.version = ant.properties[project.archivesBaseName+'_vMajor'] + "." + ant.properties[project.archivesBaseName+'_vMinor'] + "." + ant.properties[project.archivesBaseName+'_vPatch'] + ant.properties[project.archivesBaseName+'_vSuffix']
+
+    sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
+    group = "powercraft"
+    ext{
+        artifactsFolder = "${project.rootDir}/artifacts"
+        artifactsDevFolder = "${project.rootDir}/artifacts-dev"
+        artifactsSrcFolder = "${project.rootDir}/artifacts-src"
+        buildFolder = "./build/libs"
+        mavenDir = "${project.rootDir}/../PCRelease/Maven/1.7.10/"
+    }
+
+    minecraft {
+        version = "1.7.10-10.13.4.1558-1.7.10"
+        runDir = "eclipse"
+    }
+
+    processResources{
+        inputs.property "version", project.version
+        inputs.property "mcversion", project.minecraft.version
+
+        from(sourceSets.main.resources.srcDirs) {
+            include 'mcmod.info'
+                    
+            expand 'version':project.version, 'mcversion':project.minecraft.version
+        }
+            
+        from(sourceSets.main.resources.srcDirs) {
+            exclude 'mcmod.info'
+        }
+    }
+    
+    task deobfJar(type: Jar) { // Generate deobfuscated
+        from sourceSets.main.output
+        classifier = 'dev'
+    }
+
+    task sourceJar(type: Jar) { // Generate sources
+        from sourceSets.main.allSource
+        classifier = 'src'
+    }
+
+    tasks.project.build.dependsOn('sourceJar', 'deobfJar')
+    artifacts {
+        archives deobfJar
+        archives sourceJar
+        archives jar
+    }
+
+    task artifactsDev(type: Copy){ 
+        from buildFolder
+        into artifactsDevFolder
+        include "*dev.jar"
+    }
+ 
+    task artifactsSrc(type: Copy){
+        from buildFolder
+        into artifactsSrcFolder
+        include "*src.jar"
+    }
+
+    task artifacts(type: Copy){
+        from buildFolder
+        into artifactsFolder
+        exclude "*dev.jar"
+        exclude "*src.jar"
+        include "*.jar"
+    }
+
+    tasks.artifacts.dependsOn('artifactsDev')
+    tasks.artifactsDev.dependsOn('artifactsSrc')
+    tasks.artifactsSrc.dependsOn('build')
+
+    uploadArchives {
+        repositories {
+            mavenDeployer {
+                repository(url: "file://" + mavenDir)
+            }
+        }
+    }
+}

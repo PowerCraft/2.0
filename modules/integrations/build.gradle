@@ -1,0 +1,4 @@
+project.dependencies{
+    compile(project(':api'))
+}
+

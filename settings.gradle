@@ -1,0 +1,37 @@
+rootProject.name = 'PowerCraft2'
+
+include 'powercraft'
+include 'api'
+
+include 'core'
+project(':core').projectDir = new File('modules/core')
+
+include 'deco'
+project(':deco').projectDir = new File('modules/deco')
+
+include 'hologram'
+project(':hologram').projectDir = new File('modules/hologram')
+
+include 'light'
+project(':light').projectDir = new File('modules/light')
+
+include 'logic'
+project(':logic').projectDir = new File('modules/logic')
+
+include 'machines'
+project(':machines').projectDir = new File('modules/machines')
+
+include 'mobile'
+project(':mobile').projectDir = new File('modules/mobile')
+
+include 'net'
+project(':net').projectDir = new File('modules/net')
+
+include 'storage'
+project(':storage').projectDir = new File('modules/storage')
+
+include 'teleport'
+project(':teleport').projectDir = new File('modules/teleport')
+
+include 'transport'
+project(':transport').projectDir = new File('modules/transport')

@@ -1,0 +1,23 @@
+project.repositories{
+	flatDir {
+       dirs "${project.rootDir}/api/build/libs"
+   	}
+}
+
+ant.loadproperties(srcFile: "./../../version.properties")
+
+ext.versionApi = ant.properties['api_vMajor'] + "." + ant.properties['api_vMinor'] + "." + ant.properties['api_vPatch'] + ant.properties['api_vSuffix']
+
+project.dependencies{
+	compile 'powercraft:api:'+versionApi+':dev'
+    compileClasspath(project(':powercraft'))
+}
+
+version = ant.properties['logic_vMajor'] + "." + ant.properties['logic_vMinor'] + "." + ant.properties['logic_vPatch'] + ant.properties['logic_vSuffix']
+
+project.minecraft{
+	replaceIn "PClo_App.java"
+	replace "@Version@", project.version
+}
+
+archivesBaseName = "logic"

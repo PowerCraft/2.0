@@ -1,0 +1,16 @@
+ant.loadproperties(srcFile: "./../version.properties")
+project.version = ant.properties['powercraft_vMajor'] + "." + ant.properties['powercraft_vMinor'] + "." + ant.properties['powercraft_vPatch'] + ant.properties['powercraft_vSuffix']
+
+project.archivesBaseName = "powercraft"
+
+project.minecraft{
+    replaceIn "mod_PowerCraft.java"
+    replace "@Version@", project.version
+}
+
+project.jar{
+    manifest {
+        attributes 'FMLCorePlugin': 'powercraft.api.hooks.PC_Hooks'
+        attributes 'FMLCorePluginContainsFMLMod': 'true'
+    }
+}

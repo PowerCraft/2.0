@@ -1,0 +1,14 @@
+project.dependencies{
+    compileClasspath(project(':api'))
+    compileClasspath(project(':powercraft'))
+}
+
+ant.loadproperties(srcFile: "./../../version.properties")
+project.version = ant.properties['core_vMajor'] + "." + ant.properties['core_vMinor'] + "." + ant.properties['core_vPatch'] + ant.properties['core_vSuffix']
+
+project.minecraft{
+	replaceIn "PCco_App.java"
+	replace "@Version@", project.version
+}
+
+project.archivesBaseName = "core"

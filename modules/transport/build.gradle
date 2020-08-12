@@ -1,0 +1,14 @@
+project.dependencies{
+    compileClasspath(project(':api'))
+    compileClasspath(project(':powercraft'))
+}
+
+ant.loadproperties(srcFile: "./../../version.properties")
+project.version = ant.properties['transport_vMajor'] + "." + ant.properties['transport_vMinor'] + "." + ant.properties['transport_vPatch'] + ant.properties['transport_vSuffix']
+
+project.minecraft{
+	replaceIn "PCtr_App.java"
+	replace "@Version@", project.version
+}
+
+archivesBaseName = "transport"

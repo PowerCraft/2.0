@@ -1,0 +1,14 @@
+project.dependencies{
+    compileClasspath(project(':api'))
+    compileClasspath(project(':powercraft'))
+}
+
+ant.loadproperties(srcFile: "./../../version.properties")
+version = ant.properties['light_vMajor'] + "." + ant.properties['light_vMinor'] + "." + ant.properties['light_vPatch'] + ant.properties['light_vSuffix']
+
+project.minecraft{
+	replaceIn "PCli_App.java"
+	replace "@Version@", project.version
+}
+
+archivesBaseName = "light"

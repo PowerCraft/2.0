@@ -1,0 +1,14 @@
+project.dependencies{
+    compileClasspath(project(':api'))
+    compileClasspath(project(':powercraft'))
+}
+
+ant.loadproperties(srcFile: "./../../version.properties")
+version = ant.properties['hologram_vMajor'] + "." + ant.properties['hologram_vMinor'] + "." + ant.properties['hologram_vPatch'] + ant.properties['hologram_vSuffix']
+
+project.minecraft{
+	replaceIn "PChg_App.java"
+	replace "@Version@", project.version
+}
+
+archivesBaseName = "hologram"

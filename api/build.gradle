@@ -1,0 +1,13 @@
+project.dependencies{
+    compileClasspath(project(':powercraft'))
+}
+
+ant.loadproperties(srcFile: "./../version.properties")
+project.version = ant.properties['api_vMajor'] + "." + ant.properties['api_vMinor'] + "." + ant.properties['api_vPatch'] + ant.properties['api_vSuffix']
+
+project.archivesBaseName = "api"
+
+project.minecraft{
+	replaceIn "PC_APIModule.java"
+	replace "@Version@", project.version
+}

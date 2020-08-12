@@ -1,0 +1,24 @@
+project.repositories{
+	flatDir {
+       dirs "${project.rootDir}/api/build/libs/"
+   	}
+}
+
+ant.loadproperties(srcFile: "./../../version.properties")
+
+ext.versionPowercraft = ant.properties['powercraft_vMajor'] + "." + ant.properties['powercraft_vMinor'] + "." + ant.properties['powercraft_vPatch'] + ant.properties['powercraft_vSuffix']
+ext.versionApi = ant.properties['api_vMajor'] + "." + ant.properties['api_vMinor'] + "." + ant.properties['api_vPatch'] + ant.properties['api_vSuffix']
+
+project.dependencies{
+	compile 'powercraft:api:'+versionApi+':dev'
+    compileClasspath(project(':powercraft'))
+}
+
+version = ant.properties['machines_vMajor'] + "." + ant.properties['machines_vMinor'] + "." + ant.properties['machines_vPatch'] + ant.properties['machines_vSuffix']
+
+project.minecraft{
+	replaceIn "PCma_App.java"
+	replace "@Version@", project.version
+}
+
+archivesBaseName = "machines"
