@@ -8,6 +8,12 @@ Now it ported for 1.7.10 and will be released for newer versions someday.
 - CheckPoints (permanently removed)
 - ItemStorage renamed to Storage
 
+### First start:
+- load the game
+- Press P on your keyboard to open the PowerCraft Manager
+- install modules 
+Core and API will be automatically installed on startup 
+
 ### Modules in Dev
 - Logic (may contains bugs)
 - Storage (may contains bugs)
