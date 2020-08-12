@@ -10,7 +10,7 @@ Now it ported for 1.7.10 and will be released for newer versions someday.
 
 ### First start:
 - load the game
-- Press P on your keyboard to open the PowerCraft Manager
+- Press P on your keyboard to open the PowerCraft Manager (Only in main menu)
 - install modules 
 Core and API will be automatically installed on startup 
 
