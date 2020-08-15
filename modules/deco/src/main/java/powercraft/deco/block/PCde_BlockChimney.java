@@ -2,8 +2,13 @@ package powercraft.deco.block;
 
 import java.util.List;
 
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL41;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityEnderEye;
@@ -46,7 +51,7 @@ public class PCde_BlockChimney extends PC_Block {
 		if (par2 == 1)
 			return Blocks.brick_block.getBlockTextureFromSide(par1.getMCDir());
 		if (par2 == 2)
-			return Blocks.stonebrick.getBlockTextureFromSide(par1.getMCDir());
+			return Blocks.stonebrick.getIcon(par1.getMCDir(), 0);
 
 		if (par2 == 3)
 			return Blocks.stonebrick.getIcon(par1.getMCDir(), 2);
@@ -106,26 +111,62 @@ public class PCde_BlockChimney extends PC_Block {
 
 		final float px = 0.0625F;
 		float w = px * 3;
-
-		setBlockBounds(0, 0, 0, 1, 1, w);
+		
+		/*setBlockBounds(0, 1-px, 0, px, 1, px);
 		PC_Renderer.renderStandardBlock(renderer, this, x, y, z);
-		setBlockBounds(1 - w, 0, w, 1, 1, 1 - w);
+		setBlockBounds(0, 0, 0, px, px, px);
 		PC_Renderer.renderStandardBlock(renderer, this, x, y, z);
-		setBlockBounds(0, 0, 1 - w, 1, 1, 1);
+		
+		setBlockBounds(1-px, 1-px, 0, 1, 1, px);
 		PC_Renderer.renderStandardBlock(renderer, this, x, y, z);
-		setBlockBounds(0, 0, w, w, 1, 1 - w);
+		setBlockBounds(1-px, 0, 0, 1, px, px);
 		PC_Renderer.renderStandardBlock(renderer, this, x, y, z);
+		
+		setBlockBounds(0, 1-px, 1-px, px, 1, 1);
+		PC_Renderer.renderStandardBlock(renderer, this, x, y, z);
+		setBlockBounds(0, 0, 1-px, px, px, 1);
+		PC_Renderer.renderStandardBlock(renderer, this, x, y, z);
+		
+		setBlockBounds(1-px, 1-px, 1-px, 1, 1, 1);
+		PC_Renderer.renderStandardBlock(renderer, this, x, y, z);
+		setBlockBounds(1-px, 0, 1-px, 1, px, 1);
+		PC_Renderer.renderStandardBlock(renderer, this, x, y, z);*/
+		
+		setBlockBounds(0, 0, 0, 1, px, w);
+		PC_Renderer.renderStandardBlock(renderer, this, x, y, z);
+		setBlockBounds(0, 1-px, 0, 1, 1, w);
+		PC_Renderer.renderStandardBlock(renderer, this, x, y, z); 
+		
+		setBlockBounds(1 - w, 0, w, 1, px, 1-w); 
+		PC_Renderer.renderStandardBlock(renderer, this, x, y, z); 
+		setBlockBounds(1 - w, 1-px, w, 1, 1, 1-w); 
+		PC_Renderer.renderStandardBlock(renderer, this, x, y, z); 
+		
+		setBlockBounds(0, 0, 1 - w, 1, px, 1);
+		PC_Renderer.renderStandardBlock(renderer, this, x, y, z); 
+		setBlockBounds(0, 1-px, 1 - w, 1, 1, 1);
+		PC_Renderer.renderStandardBlock(renderer, this, x, y, z); 
+		
+		
+		setBlockBounds(0, 0, w, w, px, 1-w); 
+		PC_Renderer.renderStandardBlock(renderer, this, x, y, z); 
+		setBlockBounds(0, 1-px, w, w, 1, 1-w); 
+		PC_Renderer.renderStandardBlock(renderer, this, x, y, z); 
+		
+		
+		setBlockBounds(0 + px, 0+px, 0, 1 - px, 1-px, w);
+		PC_Renderer.renderStandardBlock(renderer, this, x, y, z); 
+		
+		setBlockBounds(1 - w, 0+px, 0 + px, 1, 1-px, 1 - px); 
+		PC_Renderer.renderStandardBlock(renderer, this, x, y, z); 
+		
+		setBlockBounds(0 + px, 0+px, 1 - w, 1 - px, 1-px, 1);
+		PC_Renderer.renderStandardBlock(renderer, this, x, y, z); 
+		
+		setBlockBounds(0, 0+px, 0 + px, w, 1-px, 1 - px); 
+		PC_Renderer.renderStandardBlock(renderer, this, x, y, z); 
+		
 		setBlockBounds(0, 0, 0, 1, 1, 1);
-
-		/*
-		 * setBlockBounds(0 + px, 0, 0, 1 - px, 1, w);
-		 * PC_Renderer.renderStandardBlock(renderer, this, x, y, z); setBlockBounds(1 -
-		 * w, 0, 0 + px, 1, 1, 1 - px); PC_Renderer.renderStandardBlock(renderer, this,
-		 * x, y, z); setBlockBounds(0 + px, 0, 1 - w, 1 - px, 1, 1);
-		 * PC_Renderer.renderStandardBlock(renderer, this, x, y, z); setBlockBounds(0,
-		 * 0, 0 + px, w, 1, 1 - px); PC_Renderer.renderStandardBlock(renderer, this, x,
-		 * y, z); setBlockBounds(0, 0, 0, 1, 1, 1);
-		 */
 
 		return true;
 	}
