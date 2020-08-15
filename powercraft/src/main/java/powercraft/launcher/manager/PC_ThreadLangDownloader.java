@@ -115,13 +115,6 @@ public class PC_ThreadLangDownloader extends Thread {
 				bis.close();
 
 				PC_Logger.fine(langVersion.getLang() + " lang for " + langVersion.getModule() + " installed.\n\n");
-				try {
-					Class c = Class.forName("powercraft.api.PC_Lang");
-					c.getConstructor().newInstance();
-				} catch (Exception e) {
-					PC_Logger.warning("Error reload lang resources");
-					PC_ModuleManager.errors.add("Error reload lang resources");
-				}
 				return true;
 
 			} catch (IOException e) {

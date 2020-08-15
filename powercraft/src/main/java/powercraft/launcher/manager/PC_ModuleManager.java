@@ -12,6 +12,7 @@ import powercraft.launcher.PC_Launcher;
 import powercraft.launcher.PC_LauncherUtils;
 import powercraft.launcher.PC_Property;
 import powercraft.launcher.PC_Version;
+import powercraft.launcher.loader.PC_ModuleDiscovery;
 import powercraft.launcher.loader.PC_ModuleObject;
 import powercraft.launcher.loader.PC_ModuleVersion;
 import powercraft.launcher.manager.PC_UpdateXMLFile.XMLInfoTag;
@@ -224,7 +225,6 @@ public class PC_ModuleManager {
 					module.newVersion.getVersion().toString(), false);
 			new PC_ThreadLangDownloader(module.xmlModule.getName());
 		}
-		PC_Launcher.addModule(module.xmlModule.getName(), module.module);
 	}
 
 	public static void activateModule(PC_ModuleObject module, boolean activate) {

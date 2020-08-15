@@ -8,6 +8,7 @@ import java.net.URL;
 import powercraft.launcher.PC_Launcher;
 import powercraft.launcher.PC_LauncherUtils;
 import powercraft.launcher.PC_Logger;
+import powercraft.launcher.loader.PC_ModuleDiscovery;
 import powercraft.launcher.loader.PC_ModuleObject;
 import powercraft.launcher.manager.PC_ModuleManager.ModuleUpdateInfo;
 
@@ -33,6 +34,8 @@ public class PC_ThreadModuleDownloader extends Thread {
 		do {
 			try {
 				download(url, name, version);
+				PC_ModuleDiscovery md = PC_LauncherUtils.searchModules(true);
+				PC_Launcher.addModule(name, md.getModules().get(name));
 			} catch (IOException e) {
 				if (depth <= 5)
 					error = true;
@@ -68,6 +71,8 @@ public class PC_ThreadModuleDownloader extends Thread {
 			error = false;
 			try {
 				download(url, name, version);
+				PC_ModuleDiscovery md = PC_LauncherUtils.searchModules(true);
+				PC_Launcher.addModule(name, md.getModules().get(name));
 			} catch (IOException e) {
 				if (depth <= 5)
 					error = true;
