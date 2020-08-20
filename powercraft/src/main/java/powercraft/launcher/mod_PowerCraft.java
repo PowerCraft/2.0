@@ -1,9 +1,11 @@
 package powercraft.launcher;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.lwjgl.input.Keyboard;
+
+import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.ModContainer;
@@ -12,6 +14,7 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import net.minecraft.client.settings.KeyBinding;
 import net.minecraftforge.common.MinecraftForge;
 import powercraft.launcher.manager.PC_UpdateEventHandler;
 
@@ -25,6 +28,8 @@ import powercraft.launcher.manager.PC_UpdateEventHandler;
 @Mod(modid = "PowerCraft", name = "PowerCraft", version = "@Version@", dependencies = "after:*")
 public class mod_PowerCraft {
 
+	public static KeyBinding keyManager;
+	
 	public static final String MODID = "powercraft"; // initialization mod id
 	/**
 	 * The LauncherUtils
@@ -86,6 +91,8 @@ public class mod_PowerCraft {
 	 */
 	@Mod.EventHandler
 	public void init(FMLInitializationEvent event) {
+		keyManager = new KeyBinding("key.pc_manager", Keyboard.KEY_P, "PowerCraft");
+	    ClientRegistry.registerKeyBinding(keyManager);
 		PC_Launcher.init();
 	}
 

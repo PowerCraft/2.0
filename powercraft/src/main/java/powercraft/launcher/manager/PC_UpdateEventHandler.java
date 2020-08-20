@@ -7,6 +7,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraftforge.client.event.GuiScreenEvent;
 import powercraft.launcher.PC_LauncherClientUtils;
+import powercraft.launcher.mod_PowerCraft;
 
 public class PC_UpdateEventHandler {
 
@@ -14,7 +15,7 @@ public class PC_UpdateEventHandler {
 	@SideOnly(Side.CLIENT)
 	public void config(GuiScreenEvent e) {
 		if (e.gui.getClass().getName().equals("net.minecraft.client.gui.GuiMainMenu")) {
-			if (Keyboard.isKeyDown(Keyboard.KEY_P)) {
+			if (Keyboard.isKeyDown(mod_PowerCraft.keyManager.getKeyCode())) {
 				PC_ModuleManager.onStart = false;
 				PC_LauncherClientUtils.lookForUpdates();
 			}

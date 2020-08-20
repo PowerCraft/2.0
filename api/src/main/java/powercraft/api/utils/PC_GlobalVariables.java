@@ -16,7 +16,6 @@ import powercraft.launcher.PC_Property;
 
 public class PC_GlobalVariables {
 
-	public static List<String> splashes = new ArrayList<String>();
 	public static boolean hackSplashes = true;
 	public static int indexRecentlyHit = 45;
 	public static int indexItemSthiftedIndex = 168;
