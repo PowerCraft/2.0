@@ -11,7 +11,7 @@ Now it ported for 1.7.10 and will be released for newer versions someday.
 ### First start:
 - load the game
 - Press P on your keyboard to open the PowerCraft Manager (Only in main menu)
-- install modules 
+- install modules,  
 Core and API will be automatically installed on startup 
 
 ### Modules in Dev
@@ -24,13 +24,13 @@ Core and API will be automatically installed on startup
 - Add energy
 - Write documentation for API
 - Implement some ideas from abandoned sources (API / Modules repositories)
+- Move from Eclipse to Intellij Idea
 
-### TODO:
+### TODO for release 0.1.1B:
 - Fix errors in launcher
 - Fix bugs in modules
-- Balancing craft recipes
+- ~~Balancing craft recipes~~
 - Replace temporary textures
-- Move from Eclipse to Intellij Idea
 
 All modules will be in the future added and fixes. 
 You already can enjoy old powercraft on new version of Minecraft
