@@ -10,8 +10,8 @@ import powercraft.api.annotation.PC_FieldObject;
 import powercraft.api.block.PC_Block;
 import powercraft.api.interfaces.PC_IDataHandler;
 import powercraft.api.item.PC_Item;
-import powercraft.api.recipes.PC_IRecipe;
 import powercraft.api.registry.PC_ItemRegistry;
+import powercraft.api.utils.PC_GlobalVariables;
 import powercraft.api.utils.PC_Struct2;
 import powercraft.launcher.loader.PC_Module;
 import powercraft.launcher.loader.PC_Module.PC_InitDataHandlers;
@@ -37,30 +37,47 @@ public class PCnt_App {
 	public static PC_ModuleObject instance;
 
 	@PC_InitRecipes
-	public List<PC_IRecipe> initRecipes(List<PC_IRecipe> recipes) {
-		if (PC_ItemRegistry.getPCItemByName("PCco_ItemSensorCore") != null) {
-			GameRegistry.addRecipe(new ItemStack(sensor, 1, 1), new Object[] { "C", "I", "S", 'I', Items.iron_ingot,
+	public void initRecipes() {
+		// MEDIUM RECIPES
+		if (PC_GlobalVariables.mediumRecipes) {
+			GameRegistry.addRecipe(new ItemStack(sensor, 1, 1), new Object[] { " C ", " R ", "SSS", 'R', Items.redstone,
 					'C', PC_ItemRegistry.getPCItemByName("PCco_ItemSensorCore"), 'S', Blocks.stone });
-			GameRegistry.addRecipe(new ItemStack(sensor, 1, 0), new Object[] { "C", "I", "W", 'I', Items.iron_ingot,
+
+			GameRegistry.addRecipe(new ItemStack(sensor, 1, 0), new Object[] { " C ", " R ", "WWW", 'R', Items.redstone,
 					'C', PC_ItemRegistry.getPCItemByName("PCco_ItemSensorCore"), 'W', Blocks.planks });
 
-			GameRegistry.addRecipe(new ItemStack(sensor, 1, 2), new Object[] { "C", "I", "O", 'I', Items.iron_ingot,
+			GameRegistry.addRecipe(new ItemStack(sensor, 1, 2), new Object[] { " C ", " R ", "OOO", 'R', Items.redstone,
 					'C', PC_ItemRegistry.getPCItemByName("PCco_ItemSensorCore"), 'O', Blocks.obsidian });
-		} else {
+
+			GameRegistry.addRecipe(new ItemStack(radio, 1, 0), new Object[] { " G ", "RIR", "SSS", 'I',
+					Items.iron_ingot, 'G', Items.gold_ingot, 'R', Items.redstone, 'S', Blocks.stone });
+
+			GameRegistry.addRecipe(new ItemStack(radio, 1, 1), new Object[] { " I ", "RQR", "SSS", 'Q', Items.quartz,
+					'I', Items.iron_ingot, 'R', Items.redstone, 'S', Blocks.stone });
+
+			GameRegistry.addRecipe(new ItemStack(portableTx),
+					new Object[] { " T ", "IBI", " I ", 'I', Items.iron_ingot, 'B', Blocks.stone_button, 'T', radio });
+
+		// LEGACY RECIPES
+		} else if (PC_GlobalVariables.legacyRecipes) {
 			GameRegistry.addRecipe(new ItemStack(sensor, 1, 1),
-					new Object[] { "C", "I", "S", 'I', Items.iron_ingot, 'C', Items.gold_ingot, 'S', Blocks.stone });
+					new Object[] { "R", "I", "S", 'R', Items.redstone, 'I', Items.iron_ingot, 'S', Blocks.stone });
+
 			GameRegistry.addRecipe(new ItemStack(sensor, 1, 0),
-					new Object[] { "C", "I", "W", 'I', Items.iron_ingot, 'C', Items.gold_ingot, 'W', Blocks.planks });
+					new Object[] { "R", "I", "W", 'R', Items.redstone, 'I', Items.iron_ingot, 'W', Blocks.planks });
+
 			GameRegistry.addRecipe(new ItemStack(sensor, 1, 2),
-					new Object[] { "C", "I", "O", 'I', Items.iron_ingot, 'C', Items.gold_ingot, 'O', Blocks.obsidian });
+					new Object[] { "R", "I", "O", 'R', Items.redstone, 'I', Items.iron_ingot, 'O', Blocks.obsidian });
+
+			GameRegistry.addRecipe(new ItemStack(radio, 1, 0), new Object[] { " G ", "RGR", "SSS", 'G',
+					Items.gold_ingot, 'R', Items.redstone, 'S', Blocks.stone });
+
+			GameRegistry.addRecipe(new ItemStack(radio, 1, 1), new Object[] { " I ", "RIR", "SSS", 'I',
+					Items.iron_ingot, 'R', Items.redstone, 'S', Blocks.stone });
+
+			GameRegistry.addRecipe(new ItemStack(portableTx),
+					new Object[] { "T", "B", 'I', Items.iron_ingot, 'B', Blocks.stone_button, 'T', radio });
 		}
-		GameRegistry.addRecipe(new ItemStack(radio, 1, 0),
-				new Object[] { " I ", "RIR", "SSS", 'I', Items.gold_ingot, 'R', Items.redstone, 'S', Blocks.stone });
-		GameRegistry.addRecipe(new ItemStack(radio, 1, 1),
-				new Object[] { " I ", "RIR", "SSS", 'I', Items.iron_ingot, 'R', Items.redstone, 'S', Blocks.stone });
-		GameRegistry.addRecipe(new ItemStack(portableTx),
-				new Object[] { "T", "B", 'B', Blocks.stone_button, 'T', radio });
-		return recipes;
 	}
 
 	@PC_InitDataHandlers

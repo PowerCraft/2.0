@@ -11,10 +11,10 @@ import powercraft.api.registry.PC_KeyRegistry;
 import powercraft.api.utils.PC_Struct2;
 import powercraft.launcher.PC_Property;
 import powercraft.launcher.loader.PC_Module;
+import powercraft.launcher.loader.PC_Module.PC_Init3DRecipes;
 import powercraft.launcher.loader.PC_Module.PC_InitEntities;
 import powercraft.launcher.loader.PC_Module.PC_InitPackets;
 import powercraft.launcher.loader.PC_Module.PC_InitProperties;
-import powercraft.launcher.loader.PC_Module.PC_InitRecipes;
 import powercraft.launcher.loader.PC_Module.PC_Instance;
 import powercraft.launcher.loader.PC_Module.PC_RegisterContainers;
 import powercraft.launcher.loader.PC_ModuleObject;
@@ -72,13 +72,13 @@ public class PCmo_App {
 		return entities;
 	}
 
-	@PC_InitRecipes
-	public List<PC_IRecipe> initRecipes(List<PC_IRecipe> recipes) {
+	@PC_Init3DRecipes
+	public List<PC_IRecipe> init3DRecipes(List<PC_IRecipe> recipes) {
 
 		recipes.add(new PC_3DRecipe(minerManager, new String[] { "ss", "ss" }, new String[] { "ss", "cc" }, 's',
 				Blocks.iron_block, 'c', Blocks.chest));
 
-		recipes.add(new PC_3DRecipe(minerManager, new String[] { "oooo", "oooo", "oooo", "oooo" },
+		recipes.add(new PC_3DRecipe(minerManager, new String[] { "oooo", "oooo", "oooo", "oooo" },//TODO: WHAT IS IT?
 				new String[] { "oooo", "o  o", "o  o", "oooo" }, new String[] { "oooo", "o  o", "o  o", "oooo" },
 				new String[] { "oooo", "oooo", "oooo", "oooo" }, 'o', Blocks.obsidian));
 

@@ -71,7 +71,7 @@ public class PCco_CraftingToolCraftingInventory implements PC_IInventory {
 				InventoryCrafting inventorycrafting = new InventoryCrafting(gui, 3, 3);
 				for (int j = 0; j < 9; j++) {
 					List<ItemStack> list = craftings.get(scroll + page).c[j];
-					if (list != null)
+					if (list != null && !list.isEmpty())
 						inventorycrafting.setInventorySlotContents(j, list.get(tick));
 				}
 				return craftings.get(scroll + page).b.getCraftingResult(inventorycrafting);
@@ -80,7 +80,7 @@ public class PCco_CraftingToolCraftingInventory implements PC_IInventory {
 		}
 		if (craftings.size() > 0) {
 			List<ItemStack> list = craftings.get(scroll + page).c[i - 1];
-			if (list != null) {
+			if (list != null && !list.isEmpty()) {
 				ItemStack is = list.get(tick);
 				is.stackSize = 1;
 				return is;
@@ -226,7 +226,7 @@ public class PCco_CraftingToolCraftingInventory implements PC_IInventory {
 						int n1 = n;
 						for (int i = 0; i < crafting.length; i++) {
 							List<ItemStack> list = expectedInputs[i];
-							if (list != null) {
+							if (list != null && !list.isEmpty()) {
 								int n2 = n1 % list.size();
 								n1 = n1 / list.size();
 								ItemStack is = list.get(n2);

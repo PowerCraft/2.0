@@ -172,7 +172,8 @@ public class PC_APIModule {
 		List<PC_ModuleObject> modules = PC_ModuleRegistry.getModuleList();
 		for (PC_ModuleObject module : modules) {
 			if (module.enabled) {
-				List<PC_IRecipe> l = module.initRecipes(new ArrayList<PC_IRecipe>());
+				module.initRecipes();
+				List<PC_IRecipe> l = module.init3DRecipes(new ArrayList<PC_IRecipe>());
 				if (l != null) {
 					for (PC_IRecipe recipe : l) {
 						PC_RecipeRegistry.register(recipe);

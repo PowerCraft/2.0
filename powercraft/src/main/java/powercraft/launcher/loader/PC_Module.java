@@ -152,6 +152,14 @@ public @interface PC_Module {
 	@Target(ElementType.METHOD)
 	public @interface PC_InitRecipes {
 	}
+	
+	/*
+	 * TODO: Add Java Doc
+	 */
+	@Retention(RetentionPolicy.RUNTIME)
+	@Target(ElementType.METHOD)
+	public @interface PC_Init3DRecipes {
+	}
 
 	/**
 	 * 

@@ -12,6 +12,7 @@ import powercraft.api.interfaces.PC_IDataHandler;
 import powercraft.api.item.PC_Item;
 import powercraft.api.recipes.PC_IRecipe;
 import powercraft.api.registry.PC_BlockRegistry;
+import powercraft.api.utils.PC_GlobalVariables;
 import powercraft.api.utils.PC_Struct2;
 import powercraft.launcher.loader.PC_Module;
 import powercraft.launcher.loader.PC_Module.PC_InitDataHandlers;
@@ -29,19 +30,18 @@ public class PCtp_App {
 	public static PC_Item teleporterCore;
 
 	@PC_InitRecipes
-	public List<PC_IRecipe> initRecipes(List<PC_IRecipe> recipes) {
-
-		GameRegistry.addRecipe(new ItemStack(teleporter, 1), new Object[] { " P ", "PVP", "SSS", 'V', teleporterCore,
-				'P', Blocks.glass_pane, 'S', Items.iron_ingot });
-		if (PC_BlockRegistry.getPCBlockByName("PCco_BlockPowerCrystal") != null)
+	public void initRecipes() {
+		if (PC_GlobalVariables.mediumRecipes) {
+			GameRegistry.addRecipe(new ItemStack(teleporter, 1), new Object[] { "PPP", "PVP", "SSS", 'V',
+					teleporterCore, 'P', Blocks.glass_pane, 'S', Items.iron_ingot });
 			GameRegistry.addRecipe(new ItemStack(teleporterCore, 1),
 					new Object[] { "EOE", "OVO", "EOE", 'V',
 							new ItemStack(PC_BlockRegistry.getPCBlockByName("PCco_BlockPowerCrystal"), 1, 3), 'O',
 							Blocks.obsidian, 'E', Items.ender_pearl });
-		else
-			GameRegistry.addRecipe(new ItemStack(teleporterCore, 1), new Object[] { "EOE", "OVO", "EOE", 'V',
-					Items.gold_ingot, 'O', Blocks.obsidian, 'E', Items.ender_pearl });
-		return recipes;
+		} else if (PC_GlobalVariables.legacyRecipes) {
+			GameRegistry.addRecipe(new ItemStack(teleporter, 1), new Object[] { " P ", "PVP", "SSS", 'V',
+					new ItemStack(Items.dye, 1, 5), 'P', Blocks.glass_pane, 'S', Items.iron_ingot });
+		}
 	}
 
 	@PC_InitPackets

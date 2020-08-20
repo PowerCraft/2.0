@@ -9,6 +9,7 @@ import net.minecraft.item.ItemStack;
 import powercraft.api.annotation.PC_FieldObject;
 import powercraft.api.block.PC_Block;
 import powercraft.api.recipes.PC_IRecipe;
+import powercraft.api.utils.PC_GlobalVariables;
 import powercraft.deco.block.PCde_BlockChimney;
 import powercraft.deco.block.PCde_BlockIronFrame;
 import powercraft.deco.block.PCde_BlockPlatform;
@@ -36,47 +37,58 @@ public class PCde_App {
 	public static PC_ModuleObject instance;
 
 	@PC_InitRecipes
-	public List<PC_IRecipe> initRecipes(List<PC_IRecipe> recipes) {
-
-		GameRegistry.addRecipe(new ItemStack(ironFrame, 8, 0),
+	public void initRecipes() {
+		//LEGACY counts
+		int chimneysCount = 6;
+		int frameCount = 32;
+		int platformCount = 15;
+		int stairsCount = 15;
+		
+		if(PC_GlobalVariables.mediumRecipes) {
+			chimneysCount = 3;
+			frameCount = 8;
+			platformCount = 5;
+			stairsCount = 5;
+		}
+		
+		GameRegistry.addRecipe(new ItemStack(ironFrame, frameCount, 0),
 				new Object[] { "XXX", "X X", "XXX", 'X', Items.iron_ingot });
-		GameRegistry.addRecipe(new ItemStack(platform, 5), new Object[] { "X  ", "X  ", "XXX", 'X', Items.iron_ingot });
-		GameRegistry.addRecipe(new ItemStack(stairs, 4), new Object[] { "X  ", "XX  ", " XX", 'X', Items.iron_ingot });
+		GameRegistry.addRecipe(new ItemStack(platform, platformCount), new Object[] { "X  ", "X  ", "XXX", 'X', Items.iron_ingot });
+		GameRegistry.addRecipe(new ItemStack(stairs, stairsCount), new Object[] { "X  ", "XX  ", " XX", 'X', Items.iron_ingot });
 
 		// Chimney's
-		GameRegistry.addRecipe(new ItemStack(chimney, 6, 0),
+		GameRegistry.addRecipe(new ItemStack(chimney, chimneysCount, 0),
 				new Object[] { "X X", "X X", "X X", 'X', Blocks.cobblestone });
-		GameRegistry.addRecipe(new ItemStack(chimney, 6, 1),
+		GameRegistry.addRecipe(new ItemStack(chimney, chimneysCount, 1),
 				new Object[] { "X X", "X X", "X X", 'X', Blocks.brick_block });
-		GameRegistry.addRecipe(new ItemStack(chimney, 6, 2),
+		GameRegistry.addRecipe(new ItemStack(chimney, chimneysCount, 2),
 				new Object[] { "X X", "X X", "X X", 'X', new ItemStack(Blocks.stonebrick, 1, 0) });
-		GameRegistry.addRecipe(new ItemStack(chimney, 6, 3),
+		GameRegistry.addRecipe(new ItemStack(chimney, chimneysCount, 3),
 				new Object[] { "X X", "X X", "X X", 'X', new ItemStack(Blocks.stonebrick, 1, 2) });
-		GameRegistry.addRecipe(new ItemStack(chimney, 6, 4),
+		GameRegistry.addRecipe(new ItemStack(chimney, chimneysCount, 4),
 				new Object[] { "X X", "X X", "X X", 'X', new ItemStack(Blocks.stonebrick, 1, 3) });
-		GameRegistry.addRecipe(new ItemStack(chimney, 6, 5),
+		GameRegistry.addRecipe(new ItemStack(chimney, chimneysCount, 5),
 				new Object[] { "X X", "X X", "X X", 'X', new ItemStack(Blocks.sandstone, 1, 0) });
-		GameRegistry.addRecipe(new ItemStack(chimney, 6, 6),
+		GameRegistry.addRecipe(new ItemStack(chimney, chimneysCount, 6),
 				new Object[] { "X X", "X X", "X X", 'X', new ItemStack(Blocks.sandstone, 1, 1) });
-		GameRegistry.addRecipe(new ItemStack(chimney, 6, 7),
+		GameRegistry.addRecipe(new ItemStack(chimney, chimneysCount, 7),
 				new Object[] { "X X", "X X", "X X", 'X', new ItemStack(Blocks.sandstone, 1, 2) });
-		GameRegistry.addRecipe(new ItemStack(chimney, 6, 8),
+		GameRegistry.addRecipe(new ItemStack(chimney, chimneysCount, 8),
 				new Object[] { "X X", "X X", "X X", 'X', new ItemStack(Blocks.nether_brick, 1, 0) });
-		GameRegistry.addRecipe(new ItemStack(chimney, 6, 9),
+		GameRegistry.addRecipe(new ItemStack(chimney, chimneysCount, 9),
 				new Object[] { "X X", "X X", "X X", 'X', new ItemStack(Blocks.quartz_block, 1, 0) });
-		GameRegistry.addRecipe(new ItemStack(chimney, 6, 10),
+		GameRegistry.addRecipe(new ItemStack(chimney, chimneysCount, 10),
 				new Object[] { "X X", "X X", "X X", 'X', new ItemStack(Blocks.quartz_block, 1, 1) });
-		GameRegistry.addRecipe(new ItemStack(chimney, 6, 11),
+		GameRegistry.addRecipe(new ItemStack(chimney, chimneysCount, 11),
 				new Object[] { "X X", "X X", "X X", 'X', new ItemStack(Blocks.quartz_block, 1, 2) });
-		GameRegistry.addRecipe(new ItemStack(chimney, 6, 12),
+		GameRegistry.addRecipe(new ItemStack(chimney, chimneysCount, 12),
 				new Object[] { "X X", "X X", "X X", 'X', new ItemStack(Blocks.mossy_cobblestone, 1, 0) });
-		GameRegistry.addRecipe(new ItemStack(chimney, 6, 13),
+		GameRegistry.addRecipe(new ItemStack(chimney, chimneysCount, 13),
 				new Object[] { "X X", "X X", "X X", 'X', new ItemStack(Blocks.stonebrick, 1, 1) });
-		GameRegistry.addRecipe(new ItemStack(chimney, 6, 14),
+		GameRegistry.addRecipe(new ItemStack(chimney, chimneysCount, 14),
 				new Object[] { "X X", "X X", "X X", 'X', new ItemStack(Blocks.clay, 1, 0) });
-		GameRegistry.addRecipe(new ItemStack(chimney, 6, 15),
+		GameRegistry.addRecipe(new ItemStack(chimney, chimneysCount, 15),
 				new Object[] { "X X", "X X", "X X", 'X', new ItemStack(Blocks.iron_block, 1, 0) });
-		return recipes;
 	}
 
 }

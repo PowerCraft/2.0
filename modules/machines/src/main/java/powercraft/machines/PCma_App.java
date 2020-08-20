@@ -13,10 +13,12 @@ import powercraft.api.recipes.PC_3DRecipe;
 import powercraft.api.recipes.PC_I3DRecipeHandler;
 import powercraft.api.recipes.PC_IRecipe;
 import powercraft.api.registry.PC_ItemRegistry;
+import powercraft.api.utils.PC_GlobalVariables;
 import powercraft.api.utils.PC_Struct2;
 import powercraft.api.utils.PC_Utils;
 import powercraft.launcher.PC_Property;
 import powercraft.launcher.loader.PC_Module;
+import powercraft.launcher.loader.PC_Module.PC_Init3DRecipes;
 import powercraft.launcher.loader.PC_Module.PC_InitProperties;
 import powercraft.launcher.loader.PC_Module.PC_InitRecipes;
 import powercraft.launcher.loader.PC_Module.PC_Instance;
@@ -69,46 +71,74 @@ public class PCma_App {
 	// }
 
 	@PC_InitProperties
-	public void initProperties(PC_Property config) {
+	public void initProperties(PC_Property config) {// TODO: ??
 		roasterIgnoreBlockIDs = PC_Utils.parseIntList(config.getString("PCma_BlockRoaster.roasterIgnoreBlockIDs", "1"));
 	}
 
 	@PC_InitRecipes
-	public List<PC_IRecipe> initRecipes(List<PC_IRecipe> recipes) {
-		if (PC_ItemRegistry.getPCItemByName("PCco_ItemCraftingCore") != null) {
+	public void initRecipes() {
+		// MEDIUM RECIPES
+		if (PC_GlobalVariables.mediumRecipes) {
+
 			GameRegistry.addRecipe(new ItemStack(automaticWorkbench),
 					new Object[] { "IXI", "IYI", "IZI", 'I', Items.iron_ingot, 'X', Items.diamond, 'Y',
 							PC_ItemRegistry.getPCItemByName("PCco_ItemCraftingCore"), 'Z', Items.redstone });
-		} else {
-			GameRegistry.addRecipe(new ItemStack(automaticWorkbench), new Object[] { "IXI", "IYI", "IZI", 'I',
-					Items.iron_ingot, 'X', Items.diamond, 'Y', Blocks.crafting_table, 'Z', Items.redstone });
-		}
-		GameRegistry.addRecipe(new ItemStack(roaster), new Object[] { "BBB", "OFO", "OOO", 'B', Blocks.iron_bars, 'O',
-				Blocks.obsidian, 'F', Items.blaze_rod });
-		GameRegistry.addRecipe(new ItemStack(xpBank), new Object[] { "ODO", "OGO", "O O", 'O', Blocks.obsidian, 'D',
-				Blocks.diamond_block, 'G', Items.ghast_tear });
-		GameRegistry.addRecipe(new ItemStack(transmutabox), new Object[] { "SOS", "OPO", "SOS", 'S', Blocks.iron_block,
-				'O', Blocks.obsidian, 'Z', Blocks.furnace });
-		if (PC_ItemRegistry.getPCItemByName("PCco_ItemFormationCore") != null) {
+
+			GameRegistry.addRecipe(new ItemStack(roaster), new Object[] { "BBB", "OFO", "OOO", 'B', Blocks.iron_bars,
+					'O', Blocks.obsidian, 'F', Items.flint_and_steel });
+
+			GameRegistry.addRecipe(new ItemStack(xpBank), new Object[] { "DDD", "OGO", "O O", 'O', Blocks.obsidian, 'D',
+					Blocks.diamond_block, 'G', Items.ghast_tear });
+
+			// GameRegistry.addRecipe(new ItemStack(transmutabox), new Object[] { "SOS",
+			// "OPO", "SOS", 'S',
+			// Blocks.iron_block, 'O', Blocks.obsidian, 'Z', Blocks.furnace });
+
 			GameRegistry.addRecipe(new ItemStack(blockBuilder),
-					new Object[] { "F", "D", "R", 'F', PC_ItemRegistry.getPCItemByName("PCco_ItemFormationCore"), 'R',
-							Items.redstone, 'D', Blocks.dispenser });
-		} else {
-			GameRegistry.addRecipe(new ItemStack(blockBuilder),
-					new Object[] { "F", "D", "R", 'F', Items.ghast_tear, 'R', Items.redstone, 'D', Blocks.dispenser });
-		}
-		if (PC_ItemRegistry.getPCItemByName("PCco_ItemAnnihilationCore") != null) {
+					new Object[] { "IFI", "IDI", "IRI", 'I', Items.iron_ingot, 'F',
+							PC_ItemRegistry.getPCItemByName("PCco_ItemFormationCore"), 'R', Items.redstone, 'D',
+							Blocks.dispenser });
+
 			GameRegistry.addRecipe(new ItemStack(harvester),
-					new Object[] { "A", "D", "R", 'A', PC_ItemRegistry.getPCItemByName("PCco_ItemAnnihilationCore"),
-							'R', Items.redstone, 'D', Blocks.dispenser });
-		} else {
-			GameRegistry.addRecipe(new ItemStack(harvester), new Object[] { "A", "D", "R", 'A', Items.blaze_powder, 'R',
-					Items.redstone, 'D', Blocks.dispenser });
+					new Object[] { "IAI", "IDI", "IRI", 'I', Items.iron_ingot, 'A',
+							PC_ItemRegistry.getPCItemByName("PCco_ItemAnnihilationCore"), 'R', Items.redstone, 'D',
+							Blocks.dispenser });
 
+			GameRegistry.addRecipe(new ItemStack(replacer), new Object[] { "IBI", "IRI", "IHI", 'I', Items.iron_ingot,
+					'B', blockBuilder, 'R', Items.redstone, 'H', harvester });
+
+			// LEGACY RECIPES
+		} else if (PC_GlobalVariables.legacyRecipes) {
+
+			GameRegistry.addRecipe(new ItemStack(automaticWorkbench), new Object[] { "X", "Y", "Z", 'X', Items.diamond,
+					'Y', Blocks.crafting_table, 'Z', Items.redstone });
+
+			GameRegistry.addRecipe(new ItemStack(roaster),
+					new Object[] { "III", "IFI", "III", 'I', Items.iron_ingot, 'F', Items.flint_and_steel });
+
+			GameRegistry.addRecipe(new ItemStack(xpBank), new Object[] { "ODO", "OGO", "O O", 'O', Blocks.obsidian, 'D',
+					Blocks.diamond_block, 'G', Items.ghast_tear });
+
+			// GameRegistry.addRecipe(new PC_ShapedRecipes(new PC_ItemStack(transmutabox, 1,
+			// 0), new Object[] {
+			// "SOS",
+			// "OPO",
+			// "SOS",
+			// 'S', Blocks.iron_block, 'O', Blocks.obsidian, 'P', Blocks.furnaceIdle});
+
+			GameRegistry.addRecipe(new ItemStack(blockBuilder, 1),
+					new Object[] { "G", "D", 'G', Items.gold_ingot, 'D', Blocks.dispenser });
+
+			GameRegistry.addRecipe(new ItemStack(harvester, 1),
+					new Object[] { "P", "D", 'P', Items.iron_ingot, 'D', Blocks.dispenser });
+
+			GameRegistry.addRecipe(new ItemStack(replacer, 1),
+					new Object[] { "B", "R", "H", 'B', blockBuilder, 'R', Items.redstone, 'H', harvester });
 		}
-		GameRegistry.addRecipe(new ItemStack(replacer),
-				new Object[] { "B", "R", "H", 'B', blockBuilder, 'R', Items.redstone, 'H', harvester });
+	}
 
+	@PC_Init3DRecipes
+	public List<PC_IRecipe> init3DRecipe(List recipes) {
 		recipes.add(new PC_3DRecipe((PC_I3DRecipeHandler) fishingMachine, new String[] { "www", "www", "www" },
 				new String[] { "www", "www", "www" }, new String[] { "www", "www", "www" },
 				new String[] { "www", "www", "www" }, new String[] { "www", "www", "www" },
@@ -118,7 +148,6 @@ public class PCma_App {
 
 		recipes.add(new PC_3DRecipe((PC_I3DRecipeHandler) chunkLoader, new String[] { "gog", "ogo", "gog" },
 				new String[] { " f ", "f f", " f " }, 'g', Blocks.glass, 'o', Blocks.obsidian, 'f', Blocks.fire));
-
 		return recipes;
 	}
 

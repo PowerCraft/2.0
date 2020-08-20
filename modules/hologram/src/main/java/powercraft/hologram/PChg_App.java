@@ -38,15 +38,13 @@ public class PChg_App {
 	}
 
 	@PC_InitRecipes
-	public List<PC_IRecipe> initRecipes(List<PC_IRecipe> recipes) {
+	public void initRecipes() {
+		//IT'S LEGACY AND MEDIUM RECIPES
 		if (PC_BlockRegistry.getPCBlockByName("PCco_BlockPowerCrystal") != null) {
 			for (int i = 0; i < 8; i++)
 				GameRegistry.addRecipe(new ItemStack(hologramBlockEmpty),
 						new Object[] { " p ", "gcg", "ggg", 'g', Blocks.glass, 'c', Blocks.chest, 'p',
-								new ItemStack(PC_BlockRegistry.getPCBlockByName("PCco_BlockPowerCrystal"), 1, i) });
-		} else {
-			GameRegistry.addRecipe(new ItemStack(hologramBlockEmpty),
-					new Object[] { " p ", "gcg", "ggg", 'g', Blocks.glass, 'c', Blocks.chest, 'p', Items.emerald });
+								new ItemStack(PC_BlockRegistry.getPCBlockByName("PCco_BlockPowerCrystal"), 1, -1) });
 		}
 		GameRegistry.addRecipe(new ItemStack(hologramField),
 				new Object[] { "ggg", "hhh", "ioi", 'i', Items.iron_ingot, 'g', Blocks.glass, 'h',
@@ -54,7 +52,6 @@ public class PChg_App {
 						new ItemStack(PC_ItemRegistry.getPCItemByName("PCco_ItemOreSniffer")) });
 		GameRegistry.addRecipe(new ItemStack(hologramGlasses), new Object[] { "i i", "ghg", 'i', Items.iron_ingot, 'g',
 				Blocks.glass_pane, 'h', new ItemStack(hologramField) });
-		return recipes;
 	}
 
 	public void renderHologramField(PChg_TileEntityHologramField te, double x, double y, double z) {

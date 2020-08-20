@@ -24,7 +24,10 @@ public class PC_GlobalVariables {
 	public static HashMap<String, Object> consts = new HashMap<String, Object>();
 	public static HashMap<String, Object> oldConsts = null;
 	public static boolean soundEnabled;
-
+	public static boolean legacyRecipes = false;
+	public static boolean mediumRecipes = false;
+	public static boolean hardRecipes = false;
+	
 	public static PC_Property config;
 
 	public static void loadConfig() {
@@ -41,7 +44,22 @@ public class PC_GlobalVariables {
 			config = new PC_Property(null);
 		}
 
-		hackSplashes = config.getBoolean("hacks.splash", true);
+		String recipeMode = config.getString("recipes.mode", "medium", "recipes mod can be lite/legacy or medium");
+		if(recipeMode.equalsIgnoreCase("legacy") || recipeMode.equalsIgnoreCase("lite")) {
+			legacyRecipes = true;
+			mediumRecipes = false;
+			hardRecipes = false;
+		}else if(recipeMode.equalsIgnoreCase("medium")) {
+			legacyRecipes = false;
+			mediumRecipes = true;
+			hardRecipes = false;
+		}else if(recipeMode.equalsIgnoreCase("hard")) {
+			legacyRecipes = false;
+			mediumRecipes = false;
+			hardRecipes = true;
+		}
+		
+		
 		config.getBoolean("cheats.survivalCheating", false);
 
 		if (PC_Utils.isClient())

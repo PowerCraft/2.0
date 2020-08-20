@@ -190,7 +190,7 @@ public class PCco_GuiCraftingTool extends PC_GresBaseWithInventory<PC_TileEntity
 
 	@Override
 	public void onKeyPressed(PC_IGresGui gui, char c, int i) {
-		if (i == Keyboard.KEY_RETURN || i == Keyboard.KEY_ESCAPE || i == Keyboard.KEY_E) {
+		if (i == Keyboard.KEY_ESCAPE || i == Keyboard.KEY_E) {
 			if (searchView.isVisible()) {
 				PC_PacketHandler.sendToServer(new PC_PacketSyncPlayerInv(thePlayer.inventory));
 				gui.close();

@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
+import powercraft.api.recipes.PC_IRecipe;
 import powercraft.launcher.PC_LauncherUtils;
 import powercraft.launcher.PC_Logger;
 import powercraft.launcher.PC_Property;
@@ -266,14 +267,23 @@ public class PC_ModuleObject {
 		return new ArrayList();
 	}
 
-	public List initRecipes(List recipes) {
+	public void initRecipes() {
 		try {
-			return (List) callMethod(PC_Module.PC_InitRecipes.class, new Object[] { recipes });
+			callMethod(PC_Module.PC_InitRecipes.class, new Object[] {});
 		} catch (Throwable e) {
 			errored();
 			PC_Logger.throwing("PC_ModuleObject", "initRecipes", e);
 		}
-		return new ArrayList();
+	}
+	
+	public List init3DRecipes(List recipes) {
+		try {
+			return (List)callMethod(PC_Module.PC_Init3DRecipes.class, new Object[] {recipes});
+		} catch (Throwable e) {
+			errored();
+			PC_Logger.throwing("PC_ModuleObject", "initRecipes", e);
+		}
+		return new ArrayList<PC_IRecipe>();
 	}
 
 	public List initDataHandlers(List dataHandlers) {

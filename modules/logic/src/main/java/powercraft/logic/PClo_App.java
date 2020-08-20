@@ -13,6 +13,7 @@ import powercraft.api.item.PC_Item;
 import powercraft.api.recipes.PC_IRecipe;
 import powercraft.api.recipes.PC_ShapedRecipes;
 import powercraft.api.registry.PC_BlockRegistry;
+import powercraft.api.utils.PC_GlobalVariables;
 import powercraft.api.utils.PC_Struct2;
 import powercraft.launcher.loader.PC_Module;
 import powercraft.launcher.loader.PC_Module.PC_InitRecipes;
@@ -57,7 +58,7 @@ public class PClo_App {
 	public static PC_ModuleObject instance;
 
 	@PC_InitRecipes
-	public List<PC_IRecipe> initRecipes(List<PC_IRecipe> recipes) {
+	public void initRecipes() {
 		GameRegistry.addRecipe(new ItemStack(pulsar, 1, 0),
 				new Object[] { " ro", "rcr", "or ", 'c', pulsarCore, 'r', Items.redstone, 'o', Blocks.obsidian });
 		if (PC_BlockRegistry.getPCBlockByName("PCco_BlockPowerCrystal") != null) {
@@ -95,8 +96,9 @@ public class PClo_App {
 				new Object[] { "RSR", 'R', Items.redstone, 'S', Blocks.stone });
 		GameRegistry.addRecipe(new ItemStack(flipFlop, 1, PClo_FlipFlopType.RANDOM),
 				new Object[] { "R", "T", 'R', Items.redstone, 'T', new ItemStack(flipFlop, 1, PClo_FlipFlopType.T) });
-		recipes.add(new PC_ShapedRecipes(new ItemStack(delayer, 1, PClo_DelayerType.FIFO), "DDD", "SSS", 'D',
-				Items.repeater, 'S', Blocks.stone));
+		// recipes.add(new PC_ShapedRecipes(new ItemStack(delayer, 1,
+		// PClo_DelayerType.FIFO), "DDD", "SSS", 'D',
+		// Items.repeater, 'S', Blocks.stone));
 		GameRegistry.addRecipe(new ItemStack(delayer, 1, PClo_DelayerType.HOLD),
 				new Object[] { "DD", "SS", 'D', Items.repeater, 'S', Blocks.stone });
 		GameRegistry.addRecipe(new ItemStack(special, 1, PClo_SpecialType.DAY),
@@ -130,7 +132,18 @@ public class PClo_App {
 				new Object[] { " r ", "rrr", " r ", 'r', Items.redstone });
 		GameRegistry.addRecipe(new ItemStack(repeater, 1, PClo_RepeaterType.SPLITTER_I),
 				new Object[] { "SrS", "rrr", "SrS", 'r', Items.redstone, 'S', Blocks.stone });
-		return recipes;
+
+		// MEDIUM RECIPES
+		if (PC_GlobalVariables.mediumRecipes) {
+			GameRegistry.addRecipe(new ItemStack(wire, 1),
+					new Object[] { "SSS", "RRR", "SSS", 'R', Items.redstone, 'S', Blocks.stone_slab });
+
+			// LEGACY RECIPES
+		} else if (PC_GlobalVariables.legacyRecipes) {
+			GameRegistry.addRecipe(new ItemStack(wire, 3),
+					new Object[] { "SSS", "RRR", "SSS", 'R', Items.redstone, 'S', Blocks.stone_slab });
+		}
+
 	}
 
 	@PC_RegisterContainers

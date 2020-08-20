@@ -66,33 +66,65 @@ public class PCco_App {
 	}
 
 	@PC_InitRecipes
-	public List<PC_IRecipe> initRecipes(List<PC_IRecipe> recipes) {
-		GameRegistry.addRecipe(new ItemStack(sensorCore),
-				new Object[] { "RGE", "ICI", "EGR", 'I', Items.iron_ingot, 'R', Items.redstone, 'G', Items.gold_ingot,
-						'E', Items.ender_pearl, 'C', new ItemStack(powerCrystal, 1, 6) });
-		GameRegistry.addRecipe(new ItemStack(PCco_App.annihilationCore),
-				new Object[] { "ILI", "GPG", "RRR", 'I', Items.iron_ingot, 'L', Blocks.glass_pane, 'G',
-						Items.gold_ingot, 'R', Items.redstone, 'P', Items.diamond_pickaxe });
-		GameRegistry.addRecipe(new ItemStack(PCco_App.formationCore),
-				new Object[] { "ILI", "GDG", "RRR", 'I', Items.iron_ingot, 'L', Blocks.glass_pane, 'G',
-						Items.gold_ingot, 'R', Items.redstone, 'D', Items.diamond });
-		GameRegistry.addRecipe(new ItemStack(craftingTool, 1), new Object[] { "#R#", "RXR", "#R#", 'X', craftingCore,
-				'#', Blocks.crafting_table, 'R', Items.redstone });
-		GameRegistry.addRecipe(new ItemStack(craftingCore, 1),
-				new Object[] { "#R#", "EXE", "#R#", 'X', new ItemStack(powerCrystal, 1, 1), 'E', Items.ender_pearl, '#',
-						Blocks.crafting_table, 'R', Items.redstone });
-		for (int i = 0; i < 8; i++) {
-			GameRegistry.addShapelessRecipe(new ItemStack(powerDust, 4),
-					new Object[] { new ItemStack(powerCrystal, 1, i) });
+	public void initRecipes() {
+		// MEDIUM RECIPES
+		if (PC_GlobalVariables.mediumRecipes) {
+			// cores
+			GameRegistry.addRecipe(new ItemStack(sensorCore),
+					new Object[] { "RGE", "ICI", "EGR", 'I', Items.iron_ingot, 'R', Items.redstone, 'G',
+							Items.gold_ingot, 'E', Items.ender_pearl, 'C', new ItemStack(powerCrystal, 1, 6) });
+
+			GameRegistry.addRecipe(new ItemStack(annihilationCore),
+					new Object[] { "ILI", "GPG", "RRR", 'I', Items.iron_ingot, 'L', Blocks.glass_pane, 'G',
+							Items.gold_ingot, 'R', Items.redstone, 'P', Items.diamond_pickaxe });
+
+			GameRegistry.addRecipe(new ItemStack(formationCore),
+					new Object[] { "ILI", "GDG", "RRR", 'I', Items.iron_ingot, 'L', Blocks.glass_pane, 'G',
+							Items.gold_ingot, 'R', Items.redstone, 'D', Items.diamond });
+
+			GameRegistry.addRecipe(new ItemStack(craftingCore, 1),
+					new Object[] { "#R#", "EXE", "#R#", 'X', new ItemStack(powerCrystal, 1, 1), 'E', Items.ender_pearl,
+							'#', Blocks.crafting_table, 'R', Items.redstone });
+
+			// other
+			GameRegistry.addRecipe(new ItemStack(craftingTool, 1), new Object[] { "RI ", "GXG", " IR", 'X',
+					craftingCore, 'G', Items.glowstone_dust, 'I', Items.iron_ingot, 'R', Items.redstone });
+
+			GameRegistry.addShapelessRecipe(new ItemStack(powerDust, 4), new Object[] { powerCrystal });// TODO: where
+																										// it using??
+
+			GameRegistry.addRecipe(new ItemStack(activator, 1), new Object[] { "IXI", " R ", " I ", 'X', powerCrystal,
+					'I', Items.iron_ingot, 'R', Items.redstone });
+
+			GameRegistry.addRecipe(new ItemStack(oreSniffer, 1), new Object[] { " RD", "GCG", "DR ", 'G',
+					Items.gold_ingot, 'D', Items.diamond, 'C', powerCrystal, 'R', Items.redstone });
+
+			if ((Boolean) PC_GlobalVariables.consts.get("recipes.spawner")) {
+				GameRegistry.addRecipe(new ItemStack(Blocks.mob_spawner, 1), new Object[] { "#B#", "BCB", "#B#", '#',
+						Blocks.iron_bars, 'B', Blocks.mossy_cobblestone, 'C', formationCore });
+			}
+
+			// LEGACY RECIPES
+		} else if (PC_GlobalVariables.legacyRecipes) {
+			GameRegistry.addRecipe(new ItemStack(craftingTool, 1),
+					new Object[] { " R ", "RIR", " R ", 'I', Blocks.iron_block, 'R', Items.redstone });
+
+			GameRegistry.addShapelessRecipe(new ItemStack(powerDust, 4), new Object[] { powerCrystal });// TODO: where
+																										// it using??
 
 			GameRegistry.addRecipe(new ItemStack(activator, 1),
-					new Object[] { "#X#", "RYR", " # ", 'X', new ItemStack(powerCrystal, 1, i), '#', Items.iron_ingot,
-							'Y', Items.diamond, 'R', Items.redstone });
+					new Object[] { "X", "I", 'X', powerCrystal, 'I', Items.iron_ingot });
 
-			GameRegistry.addRecipe(new ItemStack(oreSniffer, 1), new Object[] { " GD", "GCG", "DG ", 'G',
-					Items.gold_ingot, 'D', Items.diamond, 'C', new ItemStack(powerCrystal, 1, i) });
+			GameRegistry.addRecipe(new ItemStack(oreSniffer, 1),
+					new Object[] { " G ", "GCG", " G ", 'G', Items.gold_ingot, 'C', powerCrystal });
+
+			if ((Boolean) PC_GlobalVariables.consts.get("recipes.spawner")) {
+				GameRegistry.addRecipe(new ItemStack(Blocks.mob_spawner, 1),
+						new Object[] { "#B#", "B B", "#B#", '#', Items.iron_ingot, 'B', Blocks.mossy_cobblestone });
+			}
 		}
-		// reverse recipes
+
+		// REVERSE RECIPES
 		if ((Boolean) PC_GlobalVariables.consts.get("recipes.recyclation")) {
 			GameRegistry.addShapelessRecipe(new ItemStack(Blocks.sand, 4), new Object[] { Blocks.sandstone });
 			GameRegistry.addShapelessRecipe(new ItemStack(Blocks.planks, 6), new Object[] { Items.wooden_door });
@@ -118,12 +150,6 @@ public class PCco_App {
 			GameRegistry.addShapelessRecipe(new ItemStack(Blocks.planks, 3), new Object[] { Blocks.trapdoor });
 			GameRegistry.addShapelessRecipe(new ItemStack(Blocks.planks, 1), new Object[] { Items.stick, Items.stick });
 		}
-
-		if ((Boolean) PC_GlobalVariables.consts.get("recipes.spawner")) {
-			GameRegistry.addRecipe(new ItemStack(Blocks.mob_spawner, 1), new Object[] { "#B#", "BCB", "#B#", '#',
-					Blocks.iron_bars, 'B', Blocks.mossy_cobblestone, 'C', formationCore }); // TODO: need complicate
-		}
-		return recipes;
 	}
 
 	@PC_RegisterContainers

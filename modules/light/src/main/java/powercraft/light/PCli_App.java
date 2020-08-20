@@ -13,6 +13,7 @@ import powercraft.api.item.PC_Item;
 import powercraft.api.recipes.PC_IRecipe;
 import powercraft.api.registry.PC_BlockRegistry;
 import powercraft.api.registry.PC_ItemRegistry;
+import powercraft.api.utils.PC_GlobalVariables;
 import powercraft.launcher.loader.PC_Module;
 import powercraft.launcher.loader.PC_Module.PC_InitPackets;
 import powercraft.launcher.loader.PC_Module.PC_InitRecipes;
@@ -48,51 +49,68 @@ public class PCli_App {
 	public static PC_ModuleObject instance;
 
 	@PC_InitRecipes
-	public List<PC_IRecipe> initRecipes(List<PC_IRecipe> recipes) {
-		GameRegistry.addShapelessRecipe(new ItemStack(light), new Object[] { Items.redstone, Blocks.glowstone });
-		GameRegistry.addRecipe(new ItemStack(lightningConductor),
-				new Object[] { " X ", " X ", "XXX", 'X', Blocks.iron_block });
+	public void initRecipes() {
+		// MEDIUM RECIPES
+		if (PC_GlobalVariables.mediumRecipes) {
+			GameRegistry.addRecipe(new ItemStack(light), new Object[] { "XXX", "XGX", "IRI", 'I', Items.iron_ingot, 'X',
+					Blocks.glass_pane, 'R', Items.redstone, 'G', Blocks.glowstone });
 
-		GameRegistry.addRecipe(new ItemStack(laser), new Object[] { "RWD", " S ", "SSS", 'S', Blocks.stone, 'W',
-				new ItemStack(Blocks.planks, 1), 'D', Items.diamond, 'R', Items.redstone });
-		GameRegistry.addRecipe(new ItemStack(laser), new Object[] { "RWD", " S ", "SSS", 'S', Blocks.cobblestone, 'W',
-				new ItemStack(Blocks.planks, 1), 'D', Items.diamond, 'R', Items.redstone });
+			GameRegistry.addRecipe(new ItemStack(lightningConductor),
+					new Object[] { " X ", "IXI", "XXX", 'X', Blocks.iron_block, 'I', Items.iron_ingot });
 
-		if (PC_ItemRegistry.getPCItemByName("PCco_ItemSensorCore") != null) {
+			GameRegistry.addRecipe(new ItemStack(laser), new Object[] { " ID", " P ", "SRS", 'S', Blocks.stone, 'P',
+					Blocks.planks, 'D', Items.diamond, 'R', Items.redstone, 'I', Blocks.iron_block });
+
 			GameRegistry.addRecipe(new ItemStack(laserSensor, 1),
-					new Object[] { "L", "C", "R", 'C', PC_ItemRegistry.getPCItemByName("PCco_ItemSensorCore"), 'L',
-							new ItemStack(laser, 1), 'R', Items.redstone });
-		} else {
-			GameRegistry.addRecipe(new ItemStack(laserSensor, 1), new Object[] { "L", "C", "R", 'C', Items.diamond, 'L',
-					new ItemStack(laser, 1), 'R', Items.redstone });
-		}
-		GameRegistry.addRecipe(new ItemStack(mirror, 2, 0),
-				new Object[] { "GI", " I", 'G', Blocks.glass_pane, 'I', Items.iron_ingot });
+					new Object[] { "GGG", "GCG", "SRS", 'G', Blocks.glass, 'S', Blocks.stone, 'C',
+							PC_ItemRegistry.getPCItemByName("PCco_ItemSensorCore"), 'R', Items.redstone });
 
-		GameRegistry.addRecipe(new ItemStack(prism, 1), new Object[] { "GG", "GG", 'G', Blocks.glass });
+			GameRegistry.addRecipe(new ItemStack(mirror, 1, 0), new Object[] { "GGG", "GIG", "N N", 'G',
+					Blocks.glass_pane, 'I', Blocks.iron_block, 'N', Items.iron_ingot });
 
-		List<ItemStack> l = laserComposition.getItemStacks(new ArrayList<ItemStack>());
+			GameRegistry.addRecipe(new ItemStack(prism, 1),
+					new Object[] { "IGI", "GGG", "IGI", 'G', Blocks.glass, 'I', Items.iron_ingot });
 
-		if (PC_BlockRegistry.getPCBlockByName("PCco_BlockPowerCrystal") != null) {
-			GameRegistry.addRecipe(l.get(0), new Object[] { "XXX", "XPX", "XXX", 'X', Blocks.glass, 'P',
-					new ItemStack(PC_BlockRegistry.getPCBlockByName("PCco_BlockPowerCrystal"), 1, 3) });
+			List<ItemStack> l = laserComposition.getItemStacks(new ArrayList<ItemStack>());
 
-			GameRegistry.addRecipe(l.get(1), new Object[] { "XXX", "XPX", "XXX", 'X', Blocks.glass, 'P',
-					new ItemStack(PC_BlockRegistry.getPCBlockByName("PCco_BlockPowerCrystal"), 1, 1) });
-
-			GameRegistry.addRecipe(l.get(2), new Object[] { "XXX", "XPX", "XXX", 'X', Blocks.glass, 'P',
-					new ItemStack(PC_BlockRegistry.getPCBlockByName("PCco_BlockPowerCrystal"), 1, 2) });
-		} else {
-			GameRegistry.addRecipe(l.get(0), new Object[] { // TODO: change meta for glass blocks
-					"XXX", "XPX", "XXX", 'X', new ItemStack(Blocks.glass, 1, 2), 'P', Items.diamond });
-
+			GameRegistry.addRecipe(l.get(0),
+					new Object[] { "IXI", "XPX", "IDI", 'X', Blocks.glass, 'P',
+							new ItemStack(PC_BlockRegistry.getPCBlockByName("PCco_BlockPowerCrystal"), 1, 3), 'I',
+							Items.iron_ingot, 'D', Items.diamond });
 			GameRegistry.addRecipe(l.get(1),
-					new Object[] { "XXX", "XPX", "XXX", 'X', new ItemStack(Blocks.glass, 1, 3), 'P', Items.diamond });
-
+					new Object[] { "IXI", "XPX", "IDI", 'X', Blocks.glass, 'P',
+							new ItemStack(PC_BlockRegistry.getPCBlockByName("PCco_BlockPowerCrystal"), 1, 1), 'I',
+							Items.iron_ingot, 'D', Items.diamond });
 			GameRegistry.addRecipe(l.get(2),
-					new Object[] { "XXX", "XPX", "XXX", 'X', new ItemStack(Blocks.glass, 1, 4), 'P', Items.diamond });
+					new Object[] { "IXI", "XPX", "IDI", 'X', Blocks.glass, 'P',
+							new ItemStack(PC_BlockRegistry.getPCBlockByName("PCco_BlockPowerCrystal"), 1, 2), 'I',
+							Items.iron_ingot, 'D', Items.diamond });
+			// LEGACY RECIPES
+		} else if (PC_GlobalVariables.legacyRecipes) {
+			GameRegistry.addShapelessRecipe(new ItemStack(light), new Object[] { Items.redstone, Blocks.glowstone });
+			GameRegistry.addRecipe(new ItemStack(lightningConductor),
+					new Object[] { " X ", " X ", "XXX", 'X', Blocks.iron_block });
+
+			GameRegistry.addRecipe(new ItemStack(laser), new Object[] { " PD", " S ", "SSS", 'S', Blocks.cobblestone,
+					'P', Blocks.planks, 'D', Items.diamond });
+
+			GameRegistry.addRecipe(new ItemStack(laserSensor, 1),
+					new Object[] { "L", "R", 'L', laser, 'R', Items.redstone });
+
+			GameRegistry.addRecipe(new ItemStack(mirror, 2, 0),
+					new Object[] { "GI", " I", 'G', Blocks.glass_pane, 'I', Items.iron_ingot });
+
+			GameRegistry.addRecipe(new ItemStack(prism, 1), new Object[] { "GG", "GG", 'G', Blocks.glass });
+
+			List<ItemStack> l = laserComposition.getItemStacks(new ArrayList<ItemStack>());
+
+			GameRegistry.addRecipe(l.get(0), new Object[] { "GGG", "GPG", "GGG", 'G', Blocks.glass, 'P',
+					new ItemStack(PC_BlockRegistry.getPCBlockByName("PCco_BlockPowerCrystal"), 1, 3) });
+			GameRegistry.addRecipe(l.get(1), new Object[] { "GGG", "GPG", "GGG", 'G', Blocks.glass, 'P',
+					new ItemStack(PC_BlockRegistry.getPCBlockByName("PCco_BlockPowerCrystal"), 1, 1) });
+			GameRegistry.addRecipe(l.get(2), new Object[] { "GGG", "GPG", "GGG", 'G', Blocks.glass, 'P',
+					new ItemStack(PC_BlockRegistry.getPCBlockByName("PCco_BlockPowerCrystal"), 1, 2) });
 		}
-		return recipes;
 	}
 
 	@PC_InitPackets
