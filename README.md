@@ -25,6 +25,8 @@ Core and API will be automatically installed on startup
 - Write documentation for API
 - Implement some ideas from abandoned sources (API / Modules repositories)
 - Move from Eclipse to Intellij Idea
+- Porting original modules Logic and Weasel as "Legacy" marked (Mobile and Storage not working correctly and will be modified anyway)
+- Move to newer version of Minecraft
 
 ### TODO for release 0.1.1B:
 - Fix errors in launcher
